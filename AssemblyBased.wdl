@@ -681,7 +681,7 @@ task RunPaftools {
         File hapTwo
         File ref
     }
-    Int disk_size_gb = ceil(size(hapOne, "GB") + size(hapTwo, "GB") + size(ref, "GB"))*2
+    Int disk_size_gb = ceil(size(hapOne, "GB") + size(hapTwo, "GB") + size(ref, "GB"))*10
     command <<<
         TIME_COMMAND="/usr/bin/time --verbose"
         N_SOCKETS="$(lscpu | grep '^Socket(s):' | awk '{print $NF}')"
