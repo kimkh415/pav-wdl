@@ -1,9 +1,9 @@
 {
-  "pav.ref": "hg38/no_alt/hg38.no_alt.fa",
-  "pav.refFai": "chroms.out",
-  "pav.hapOne": "asm/HG002/h1.fa.gz",
-  "pav.hapTwo": "asm/HG002/h2.fa.gz",
+  "pav.ref": "gs://fc-0ed80f5e-6256-4473-ba6b-d607ff865f1b/ref/hg38-no_alt.fasta",
+  "pav.refFai": "gs://fc-0ed80f5e-6256-4473-ba6b-d607ff865f1b/ref/hg38-no_alt.fasta.fai",
+  "pav.hapOne": "gs://fc-0ed80f5e-6256-4473-ba6b-d607ff865f1b/assemblies/HG002.paternal.f1_assembly_v2_genbank.fasta",
+  "pav.hapTwo": "gs://fc-0ed80f5e-6256-4473-ba6b-d607ff865f1b/assemblies/HG002.maternal.f1_assembly_v2_genbank.fasta",
   "pav.sample": "HG002",
-  "pav.config": "config.json"
+  "pav.config": "gs://fc-0ed80f5e-6256-4473-ba6b-d607ff865f1b/pav_config.json"
 }
 

@@ -123,10 +123,8 @@ SHELL ["conda", "run", "-n", "lr-pav", "/bin/bash", "-c"]
 RUN echo "conda init bash" > ~/.bashrc
 RUN python pav_test_install.py
 RUN git clone --recursive https://github.com/EichlerLab/pav.git
-# We modified <pav/rules/call.snakefile> as follows:
-# - We set MERGE_BATCH_COUNT=1, since this parameter is not accessible from the
-#   configuration JSON.
-# - We fixed an empty CSV bug in rule <call_merge_haplotypes>.
+# We fixed an empty CSV bug in rule <call_merge_haplotypes> of file
+# <pav/rules/call.snakefile>.
 COPY pav_call.snakefile ./pav/rules/call.snakefile
 # We fixed an empty BED bug in rule <vcf_write_vcf> of file
 # <pav/rules/vcf.snakefile>.

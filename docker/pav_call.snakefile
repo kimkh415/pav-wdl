@@ -12,7 +12,7 @@ FILTER_REASON = {
     'INV_MAX': 'INV_MAX: Exceeds max INV size ({})'
 }
 
-MERGE_BATCH_COUNT = 1
+MERGE_BATCH_COUNT = 20
 
 
 #
