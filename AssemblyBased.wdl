@@ -11,12 +11,9 @@ workflow pav {
   input {
     File ref
     File refFai
-
     File hapOne
     File hapTwo
-
     String sample
-
     File config
   }
 
@@ -702,7 +699,7 @@ task RunPaftools {
         ${TIME_COMMAND} paftools.js call -f ~{ref} h1_h2.sorted.paf > out.vcf
     >>>
     output {
-        File vcf = out.vcf
+        File vcf = "out.vcf"
     }
     runtime {
         docker: "fcunial/assemblybased"
