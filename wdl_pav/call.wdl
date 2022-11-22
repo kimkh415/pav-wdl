@@ -21,7 +21,6 @@ task call_cigar_hap {
     tar zxvf ~{trimBed}
     tar zxvf ~{asmGz}
     tar zxvf ~{refGz}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/cigar/batched/insdel_~{hap}_~{batch}.bed.gz temp/~{sample}/cigar/batched/snv.bed_~{hap}_~{batch}.gz
     tar zcvf call_cigar_~{hap}_~{sample}_~{batch}.tgz temp/~{sample}/cigar/batched/insdel_~{hap}_~{batch}.bed.gz temp/~{sample}/cigar/batched/snv.bed_~{hap}_~{batch}.gz
@@ -58,7 +57,6 @@ task call_cigar_merge_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " snvBatch} | tr " " "\n" | xargs -I '@' tar zxvf @
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/cigar/pre_inv/svindel_insdel_~{hap}.bed.gz temp/~{sample}/cigar/pre_inv/snv_snv_~{hap}.bed.gz
     tar zcvf call_cigar_merge_~{hap}_~{sample}.tgz temp/~{sample}/cigar/pre_inv/svindel_insdel_~{hap}.bed.gz temp/~{sample}/cigar/pre_inv/snv_snv_~{hap}.bed.gz
@@ -101,7 +99,6 @@ task call_mappable_bed_hap {
     tar zxvf ~{insBed}
     tar zxvf ~{invBed}
     tar zxvf ~{trimBed}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/callable/callable_regions_~{hap}_500.bed.gz
     tar zcvf call_mappable_bed_~{hap}_~{sample}.tgz results/~{sample}/callable/callable_regions_~{hap}_500.bed.gz
@@ -146,7 +143,6 @@ task call_integrate_sources_hap {
     tar zxvf ~{insBedIn}
     tar zxvf ~{invBedIn}
     tar zxvf ~{invBatch}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/integrated/~{hap}/svindel_ins.bed.gz temp/~{sample}/bed/integrated/~{hap}/svindel_del.bed.gz temp/~{sample}/bed/integrated/~{hap}/snv_snv.bed.gz temp/~{sample}/bed/integrated/~{hap}/sv_inv.bed.gz
     tar zcvf call_integrate_sources_~{hap}_~{sample}.tgz temp/~{sample}/bed/integrated/~{hap}/svindel_ins.bed.gz temp/~{sample}/bed/integrated/~{hap}/svindel_del.bed.gz temp/~{sample}/bed/integrated/~{hap}/snv_snv.bed.gz temp/~{sample}/bed/integrated/~{hap}/sv_inv.bed.gz
@@ -190,7 +186,6 @@ task call_merge_haplotypes_chrom_svindel {
     tar zxvf ~{svindel_bed_h2}
     tar zxvf ~{callable_h1}
     tar zxvf ~{callable_h2}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
     tar zcvf call_merge_haplotypes_chrom_svindel_~{sample}_~{svtype}_~{chrom}.tgz temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
@@ -234,7 +229,6 @@ task call_merge_haplotypes_chrom_snv {
     tar zxvf ~{snvBed_h2}
     tar zxvf ~{callable_h1}
     tar zxvf ~{callable_h2}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
     tar zcvf call_merge_haplotypes_chrom_snv_~{sample}_~{svtype}_~{chrom}.tgz temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
@@ -279,7 +273,6 @@ task call_merge_haplotypes {
     tar zxvf ~{callable_h1}
     tar zxvf ~{callable_h2}
     echo ~{sep=" " inbed} | tr " " "\n" | xargs -I '@' tar zxvf @
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/merged/~{svtype}.bed.gz
     tar zcvf call_merge_haplotypes_~{svtype}_~{sample}.tgz temp/~{sample}/bed/merged/~{svtype}.bed.gz

@@ -17,7 +17,6 @@ task call_inv_flag_insdel_cluster_indel_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
@@ -55,7 +54,6 @@ task call_inv_flag_insdel_cluster_sv_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{inbed}
     tar zxvf ~{pav_asm}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
@@ -93,7 +91,6 @@ task call_inv_cluster_indel_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_cluster_indel_~{hap}_~{sample}_~{vartype}.tgz temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
@@ -131,7 +128,6 @@ task call_inv_cluster_snv_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_cluster_snv_~{hap}_~{sample}_~{vartype}.tgz temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
@@ -174,7 +170,6 @@ task call_inv_merge_flagged_loci_hap {
     tar zxvf ~{svFlag}
     tar zxvf ~{snvCluster}
     tar zxvf ~{indelCluster}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/inv_caller/flagged_regions_~{hap}.bed.gz
     tar zcvf call_inv_merge_flagged_loci_~{hap}_~{sample}.tgz results/~{sample}/inv_caller/flagged_regions_~{hap}.bed.gz
@@ -218,7 +213,6 @@ task call_inv_batch_hap {
     tar zxvf ~{flag}
     tar zxvf ~{asmGz}
     tar zxvf ~{refGz}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/batch/~{hap}/inv_call_~{batch}.bed.gz
     tar zcvf call_inv_batch_~{hap}_~{batch}_~{sample}.tgz temp/~{sample}/inv_caller/batch/~{hap}/inv_call_~{batch}.bed.gz
@@ -255,7 +249,6 @@ task call_inv_batch_merge_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " invBed} | tr " " "\n" | xargs -I '@' tar zxvf @
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/sv_inv_~{hap}.bed.gz
     tar zcvf call_inv_batch_merge_~{hap}_~{sample}.tgz temp/~{sample}/inv_caller/sv_inv_~{hap}.bed.gz

@@ -48,7 +48,6 @@ task align_get_tig_fa_hap {
     set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/align/contigs_~{hap}.fa.gz temp/~{sample}/align/contigs_~{hap}.fa.gz.fai
     tar zcvf align_get_tig_fa_~{hap}_~{sample}.tgz temp/~{sample}/align/contigs_~{hap}.fa.gz temp/~{sample}/align/contigs_~{hap}.fa.gz.fai
@@ -84,7 +83,6 @@ task align_ref_anno_n_gap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{ref_gz}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} data/ref/n_gap.bed.gz
     tar zcvf align_ref_anno_n_gap_~{sample}.tgz data/ref/n_gap.bed.gz
@@ -123,7 +121,6 @@ task align_map_hap {
     tar zxvf ~{pav_asm}
     tar zxvf ~{asmGz}
     tar zxvf ~{refGz}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/align/pre-cut/aligned_tig_~{hap}.sam.gz
     tar czvf align_map_~{hap}_~{sample}.tgz temp/~{sample}/align/pre-cut/aligned_tig_~{hap}.sam.gz
@@ -164,7 +161,6 @@ task align_get_read_bed_hap {
     tar zxvf ~{refGz}
     tar zxvf ~{samGz}
     tar zxvf ~{tigFa}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/align/pre-cut/aligned_tig_~{hap}.bed.gz
     tar czvf align_get_read_bed_~{hap}_~{sample}.tgz results/~{sample}/align/pre-cut/aligned_tig_~{hap}.bed.gz
@@ -203,7 +199,6 @@ task align_cut_tig_overlap_hap {
     tar zxvf ~{pav_asm}
     tar zxvf ~{asmGz}
     tar zxvf ~{bedGz}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/align/aligned_tig_~{hap}.bed.gz
     tar czvf align_cut_tig_overlap_~{hap}_~{sample}.tgz results/~{sample}/align/aligned_tig_~{hap}.bed.gz
