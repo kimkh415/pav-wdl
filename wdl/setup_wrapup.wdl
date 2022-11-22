@@ -29,7 +29,7 @@ task tar_asm {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
+      docker:         "fcunial/assemblybased"
   }
 }
 
@@ -71,7 +71,7 @@ task call_final_bed {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
+      docker:         "fcunial/assemblybased"
   }
 }
 
@@ -105,7 +105,7 @@ task data_ref_contig_table{
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
+      docker:         "fcunial/assemblybased"
   }
 }
 
@@ -142,6 +142,6 @@ task write_vcf {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
+      docker:         "fcunial/assemblybased"
   }
 }

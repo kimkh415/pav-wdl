@@ -664,8 +664,50 @@ workflow pav {
       contigInfo = data_ref_contig_table.contigInfo,
       finalBedOut = call_final_bed.bed
   }
+  call RunPaftools {
+    input:
+      hapOne = hapOne,
+      hapTwo = hapTwo,
+      ref = ref
+  }
 
   output {
-    File vcf = write_vcf.vcf
+    File pav_vcf = write_vcf.vcf
+    File paftools_vcf = RunPaftools.vcf
   }
+}
+
+
+task RunPaftools {
+    input { 
+        File hapOne
+        File hapTwo
+        File ref
+    }
+    Int disk_size_gb = ceil(size(hapOne, "GB") + size(hapTwo, "GB") + size(ref, "GB"))*2
+    command <<<
+        TIME_COMMAND="/usr/bin/time --verbose"
+        N_SOCKETS="$(lscpu | grep '^Socket(s):' | awk '{print $NF}')"
+        N_CORES_PER_SOCKET="$(lscpu | grep '^Core(s) per socket:' | awk '{print $NF}')"
+        N_THREADS=$(( ${N_SOCKETS} * ${N_CORES_PER_SOCKET} ))
+        MINIMAP2_ASM_FLAG="asm5"  # asm5/asm10/asm20 for ~0.1/1/5% sequence divergence
+        
+        set -euxo pipefail
+
+        cat ~{hapOne} ~{hapTwo} > h1_h2.fa
+        ${TIME_COMMAND} minimap2 -t ${N_THREADS} -x ${MINIMAP2_ASM_FLAG} -c --cs ~{ref} h1_h2.fa -o h1_h2.paf
+        rm -f h1_h2.fa
+        ${TIME_COMMAND} sort --parallel=${N_THREADS} -k6,6 -k8,8n h1_h2.paf > h1_h2.sorted.paf
+        rm -f h1_h2.paf
+        ${TIME_COMMAND} paftools.js call -f ~{ref} h1_h2.sorted.paf > out.vcf
+    >>>
+    output {
+        File vcf = out.vcf
+    }
+    runtime {
+        docker: "fcunial/assemblybased"
+        cpu: 1
+        disks: "local-disk " + disk_size_gb + " HDD"
+        preemptible: 3
+    }
 }
