@@ -45,7 +45,7 @@ workflow pav {
       pav_asm = tar_asm.asm_tar,
       hap = "h1",
       threads = "1",
-      mem_gb = "8",
+      mem_gb = "16",
       sample = sample
   }
   call align.align_get_tig_fa_hap as align_get_tig_fa_h2 {
@@ -54,7 +54,7 @@ workflow pav {
       pav_asm = tar_asm.asm_tar,
       hap = "h2",
       threads = "1",
-      mem_gb = "8",
+      mem_gb = "16",
       sample = sample
   }
   call align.align_ref_anno_n_gap {
