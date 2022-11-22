@@ -1,0 +1,8 @@
+version: 1.2
+workflows:
+- name: AssemblyBased
+  subclass: wdl
+  publish: True
+  primaryDescriptorPath: /AssemblyBased.wdl
+  testParameterFiles:
+  
