@@ -703,7 +703,7 @@ task RunPaftools {
     }
     runtime {
         docker: "fcunial/assemblybased"
-        cpu: 1
+        cpu: 32
         memory: "32GB"
         disks: "local-disk " + disk_size_gb + " HDD"
         preemptible: 3
