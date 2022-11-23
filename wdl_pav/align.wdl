@@ -16,7 +16,7 @@ task align_ref {
     source activate lr-pav
     mkdir -p ~{work_dir}
     cd ~{work_dir}
-    cp ~{docker_dir}/pav .
+    cp -r ~{docker_dir}/pav .
     
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
@@ -57,7 +57,7 @@ task align_get_tig_fa_hap {
     source activate lr-pav
     mkdir -p ~{work_dir}
     cd ~{work_dir}
-    cp ~{docker_dir}/pav .
+    cp -r ~{docker_dir}/pav .
     
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
@@ -98,7 +98,7 @@ task align_ref_anno_n_gap {
     source activate lr-pav
     mkdir -p ~{work_dir}
     cd ~{work_dir}
-    cp ~{docker_dir}/pav .
+    cp -r ~{docker_dir}/pav .
   
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
@@ -142,7 +142,7 @@ task align_map_hap {
     source activate lr-pav
     mkdir -p ~{work_dir}
     cd ~{work_dir}
-    cp ~{docker_dir}/pav .
+    cp -r ~{docker_dir}/pav .
     
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
@@ -188,7 +188,7 @@ task align_get_read_bed_hap {
     source activate lr-pav
     mkdir -p ~{work_dir}
     cd ~{work_dir}
-    cp ~{docker_dir}/pav .
+    cp -r ~{docker_dir}/pav .
   
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
@@ -234,7 +234,7 @@ task align_cut_tig_overlap_hap {
     source activate lr-pav
     mkdir -p ~{work_dir}
     cd ~{work_dir}
-    cp ~{docker_dir}/pav .
+    cp -r ~{docker_dir}/pav .
   
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
