@@ -9,11 +9,12 @@ task align_ref {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
-    mv /opt/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} data/ref/ref.fa.gz data/ref/ref.fa.gz.fai
     tar zcvf align_ref_~{sample}.tgz data/ref/ref.fa.gz data/ref/ref.fa.gz.fai
@@ -44,8 +45,10 @@ task align_get_tig_fa_hap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tree
@@ -78,8 +81,10 @@ task align_ref_anno_n_gap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{ref_gz}
@@ -115,8 +120,10 @@ task align_map_hap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{asmGz}
@@ -154,8 +161,10 @@ task align_get_read_bed_hap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{refGz}
@@ -193,8 +202,10 @@ task align_cut_tig_overlap_hap {
     String sample
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{asmGz}

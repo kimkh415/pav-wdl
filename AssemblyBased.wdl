@@ -661,16 +661,16 @@ workflow pav {
       contigInfo = data_ref_contig_table.contigInfo,
       finalBedOut = call_final_bed.bed
   }
-  call RunPaftools {
-    input:
-      hapOne = hapOne,
-      hapTwo = hapTwo,
-      ref = ref
-  }
+  #call RunPaftools {
+  #  input:
+  #    hapOne = hapOne,
+  #    hapTwo = hapTwo,
+  #    ref = ref
+  #}
 
   output {
     File pav_vcf = write_vcf.vcf
-    File paftools_vcf = RunPaftools.vcf
+    #File paftools_vcf = RunPaftools.vcf
   }
 }
 

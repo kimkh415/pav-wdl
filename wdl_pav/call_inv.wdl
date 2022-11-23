@@ -12,8 +12,10 @@ task call_inv_flag_insdel_cluster_indel_hap {
     String vartype
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
@@ -49,8 +51,10 @@ task call_inv_flag_insdel_cluster_sv_hap {
     String vartype
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{inbed}
     tar zxvf ~{pav_asm}
@@ -86,8 +90,10 @@ task call_inv_cluster_indel_hap {
     String vartype
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
@@ -123,8 +129,10 @@ task call_inv_cluster_snv_hap {
     String vartype
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
@@ -162,8 +170,10 @@ task call_inv_merge_flagged_loci_hap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{indelFlag}
@@ -205,8 +215,10 @@ task call_inv_batch_hap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{trimBed}
@@ -244,8 +256,10 @@ task call_inv_batch_merge_hap {
     String mem_gb
   }
   command <<<
-    source activate lr-pav
     set -eux
+    echo "Current dir: $(pwd)"
+    cd /cromwell_root/
+    source activate lr-pav
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " invBed} | tr " " "\n" | xargs -I '@' tar zxvf @

@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 MAINTAINER Fabio Cunial
-ARG work_dir=/assemblybased
+ARG work_dir=/cromwell_root
 WORKDIR ${work_dir}
 
 
@@ -93,7 +93,8 @@ RUN wget https://github.com/samtools/bcftools/releases/download/${bcftools_versi
 
 # MINIMAP2 + PAFTOOLS
 RUN curl -L https://github.com/attractivechaos/k8/releases/download/v${k8_version}/k8-${k8_version}.tar.bz2 | tar -jxf - \
-    && cp k8-${k8_version}/k8-Linux /usr/local/bin/k8
+    && cp k8-${k8_version}/k8-Linux /usr/local/bin/k8 \
+    && rm -rf k8-${k8_version}/
 RUN wget https://github.com/lh3/minimap2/releases/download/v${minimap2_version}/minimap2-${minimap2_version}_x64-linux.tar.bz2 \
     && tar xjf minimap2-${minimap2_version}_x64-linux.tar.bz2 \
     && rm minimap2-${minimap2_version}_x64-linux.tar.bz2 \
