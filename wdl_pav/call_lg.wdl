@@ -16,6 +16,7 @@ task call_lg_split_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{trimBed}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/lg_sv/batch_~{hap}.tsv.gz
     tar zcvf call_lg_split_~{hap}_~{sample}.tgz temp/~{sample}/lg_sv/batch_~{hap}.tsv.gz
@@ -32,7 +33,7 @@ task call_lg_split_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -61,6 +62,7 @@ task call_lg_discover_hap {
     tar zxvf ~{asmGz}
     tar zxvf ~{trimBed}
     tar zxvf ~{batchFile}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/lg_sv/batch/sv_ins_~{hap}_~{batch}.bed.gz temp/~{sample}/lg_sv/batch/sv_del_~{hap}_~{batch}.bed.gz temp/~{sample}/lg_sv/batch/sv_inv_~{hap}_~{batch}.bed.gz
     tar zcvf call_lg_discover_~{sample}_~{hap}_~{batch}.tgz temp/~{sample}/lg_sv/batch/sv_ins_~{hap}_~{batch}.bed.gz temp/~{sample}/lg_sv/batch/sv_del_~{hap}_~{batch}.bed.gz temp/~{sample}/lg_sv/batch/sv_inv_~{hap}_~{batch}.bed.gz
@@ -77,7 +79,7 @@ task call_lg_discover_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -98,6 +100,7 @@ task call_merge_lg_del_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " inbed} | tr " " "\n" | xargs -I '@' tar zxvf @
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
     tar zcvf call_merge_lg_del_~{hap}_~{svtype}_~{sample}.tgz temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
@@ -114,7 +117,7 @@ task call_merge_lg_del_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -135,6 +138,7 @@ task call_merge_lg_ins_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " inbed} | tr " " "\n" | xargs -I '@' tar zxvf @
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
     tar zcvf call_merge_lg_ins_~{hap}_~{svtype}_~{sample}.tgz temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
@@ -151,7 +155,7 @@ task call_merge_lg_ins_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -172,6 +176,7 @@ task call_merge_lg_inv_hap {
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " inbed} | tr " " "\n" | xargs -I '@' tar zxvf @
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
     tar zcvf call_merge_lg_inv_~{hap}_~{svtype}_~{sample}.tgz temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
@@ -188,6 +193,6 @@ task call_merge_lg_inv_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }

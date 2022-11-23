@@ -12,13 +12,12 @@ task call_inv_flag_insdel_cluster_indel_hap {
     String vartype
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
@@ -35,7 +34,7 @@ task call_inv_flag_insdel_cluster_indel_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -51,13 +50,12 @@ task call_inv_flag_insdel_cluster_sv_hap {
     String vartype
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{inbed}
     tar zxvf ~{pav_asm}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
@@ -74,7 +72,7 @@ task call_inv_flag_insdel_cluster_sv_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -90,13 +88,12 @@ task call_inv_cluster_indel_hap {
     String vartype
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_cluster_indel_~{hap}_~{sample}_~{vartype}.tgz temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
@@ -113,7 +110,7 @@ task call_inv_cluster_indel_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -129,13 +126,12 @@ task call_inv_cluster_snv_hap {
     String vartype
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{inbed}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
     tar zcvf call_inv_cluster_snv_~{hap}_~{sample}_~{vartype}.tgz temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
@@ -152,7 +148,7 @@ task call_inv_cluster_snv_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -170,16 +166,15 @@ task call_inv_merge_flagged_loci_hap {
     String mem_gb
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{indelFlag}
     tar zxvf ~{svFlag}
     tar zxvf ~{snvCluster}
     tar zxvf ~{indelCluster}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/inv_caller/flagged_regions_~{hap}.bed.gz
     tar zcvf call_inv_merge_flagged_loci_~{hap}_~{sample}.tgz results/~{sample}/inv_caller/flagged_regions_~{hap}.bed.gz
@@ -196,7 +191,7 @@ task call_inv_merge_flagged_loci_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -215,16 +210,15 @@ task call_inv_batch_hap {
     String mem_gb
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{trimBed}
     tar zxvf ~{flag}
     tar zxvf ~{asmGz}
     tar zxvf ~{refGz}
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/batch/~{hap}/inv_call_~{batch}.bed.gz
     tar zcvf call_inv_batch_~{hap}_~{batch}_~{sample}.tgz temp/~{sample}/inv_caller/batch/~{hap}/inv_call_~{batch}.bed.gz
@@ -241,7 +235,7 @@ task call_inv_batch_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }
 
@@ -256,13 +250,12 @@ task call_inv_batch_merge_hap {
     String mem_gb
   }
   command <<<
-    set -eux
-    echo "Current dir: $(pwd)"
-    cd /cromwell_root/
     source activate lr-pav
+    set -eux
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " invBed} | tr " " "\n" | xargs -I '@' tar zxvf @
+    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/inv_caller/sv_inv_~{hap}.bed.gz
     tar zcvf call_inv_batch_merge_~{hap}_~{sample}.tgz temp/~{sample}/inv_caller/sv_inv_~{hap}.bed.gz
@@ -279,6 +272,6 @@ task call_inv_batch_merge_hap {
       bootDiskSizeGb: 50
       preemptible:    3
       maxRetries:     1
-      docker:         "fcunial/assemblybased"
+      docker:         "us.gcr.io/broad-dsp-lrma/lr-pav:1.2.1"
   }
 }

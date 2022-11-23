@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 MAINTAINER Fabio Cunial
-ARG work_dir=/cromwell_root
+ARG work_dir=/assemblybased
 WORKDIR ${work_dir}
 
 
