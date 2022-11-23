@@ -45,16 +45,22 @@ task call_final_bed {
     String mem_gb
     String sample
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{invBed}
     tar zxvf ~{snvBed}
     tar zxvf ~{insBed}
     tar zxvf ~{delBed}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/bed/snv_snv.bed.gz results/~{sample}/bed/indel_ins.bed.gz results/~{sample}/bed/indel_del.bed.gz results/~{sample}/bed/sv_ins.bed.gz results/~{sample}/bed/sv_del.bed.gz results/~{sample}/bed/sv_inv.bed.gz results/~{sample}/bed/fa/indel_ins.fa.gz results/~{sample}/bed/fa/indel_del.fa.gz results/~{sample}/bed/fa/sv_ins.fa.gz results/~{sample}/bed/fa/sv_del.fa.gz results/~{sample}/bed/fa/sv_inv.fa.gz
     tar zcvf final_bed.tgz results/~{sample}/bed/snv_snv.bed.gz results/~{sample}/bed/indel_ins.bed.gz results/~{sample}/bed/indel_del.bed.gz results/~{sample}/bed/sv_ins.bed.gz results/~{sample}/bed/sv_del.bed.gz results/~{sample}/bed/sv_inv.bed.gz results/~{sample}/bed/fa/indel_ins.fa.gz results/~{sample}/bed/fa/indel_del.fa.gz results/~{sample}/bed/fa/sv_ins.fa.gz results/~{sample}/bed/fa/sv_del.fa.gz results/~{sample}/bed/fa/sv_inv.fa.gz
@@ -83,12 +89,18 @@ task data_ref_contig_table{
     String mem_gb
     String sample
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s snakemake -s pav/Snakefile --cores ~{threads} data/ref/contig_info.tsv.gz
     tar zcvf contig_info.tgz data/ref/contig_info.tsv.gz
@@ -119,14 +131,20 @@ task write_vcf {
     String mem_gb
     String sample
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{contigInfo}
     tar zxvf ~{finalBedOut}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} pav_~{sample}.vcf.gz
   >>>

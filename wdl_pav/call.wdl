@@ -13,15 +13,21 @@ task call_cigar_hap {
     String mem_gb
     String hap
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{trimBed}
     tar zxvf ~{asmGz}
     tar zxvf ~{refGz}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/cigar/batched/insdel_~{hap}_~{batch}.bed.gz temp/~{sample}/cigar/batched/snv.bed_~{hap}_~{batch}.gz
     tar zcvf call_cigar_~{hap}_~{sample}_~{batch}.tgz temp/~{sample}/cigar/batched/insdel_~{hap}_~{batch}.bed.gz temp/~{sample}/cigar/batched/snv.bed_~{hap}_~{batch}.gz
@@ -52,13 +58,19 @@ task call_cigar_merge_hap {
     String threads
     String mem_gb
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     echo ~{sep=" " snvBatch} | tr " " "\n" | xargs -I '@' tar zxvf @
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/cigar/pre_inv/svindel_insdel_~{hap}.bed.gz temp/~{sample}/cigar/pre_inv/snv_snv_~{hap}.bed.gz
     tar zcvf call_cigar_merge_~{hap}_~{sample}.tgz temp/~{sample}/cigar/pre_inv/svindel_insdel_~{hap}.bed.gz temp/~{sample}/cigar/pre_inv/snv_snv_~{hap}.bed.gz
@@ -92,16 +104,22 @@ task call_mappable_bed_hap {
     String threads
     String mem_gb
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{delBed}
     tar zxvf ~{insBed}
     tar zxvf ~{invBed}
     tar zxvf ~{trimBed}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} results/~{sample}/callable/callable_regions_~{hap}_500.bed.gz
     tar zcvf call_mappable_bed_~{hap}_~{sample}.tgz results/~{sample}/callable/callable_regions_~{hap}_500.bed.gz
@@ -136,9 +154,16 @@ task call_integrate_sources_hap {
     String threads
     String mem_gb
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{preInvSvBed}
@@ -146,7 +171,6 @@ task call_integrate_sources_hap {
     tar zxvf ~{insBedIn}
     tar zxvf ~{invBedIn}
     tar zxvf ~{invBatch}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/integrated/~{hap}/svindel_ins.bed.gz temp/~{sample}/bed/integrated/~{hap}/svindel_del.bed.gz temp/~{sample}/bed/integrated/~{hap}/snv_snv.bed.gz temp/~{sample}/bed/integrated/~{hap}/sv_inv.bed.gz
     tar zcvf call_integrate_sources_~{hap}_~{sample}.tgz temp/~{sample}/bed/integrated/~{hap}/svindel_ins.bed.gz temp/~{sample}/bed/integrated/~{hap}/svindel_del.bed.gz temp/~{sample}/bed/integrated/~{hap}/snv_snv.bed.gz temp/~{sample}/bed/integrated/~{hap}/sv_inv.bed.gz
@@ -181,16 +205,22 @@ task call_merge_haplotypes_chrom_svindel {
     String threads
     String mem_gb
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{svindel_bed_h1}
     tar zxvf ~{svindel_bed_h2}
     tar zxvf ~{callable_h1}
     tar zxvf ~{callable_h2}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
     tar zcvf call_merge_haplotypes_chrom_svindel_~{sample}_~{svtype}_~{chrom}.tgz temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
@@ -225,16 +255,22 @@ task call_merge_haplotypes_chrom_snv {
     String threads
     String mem_gb
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{snvBed_h1}
     tar zxvf ~{snvBed_h2}
     tar zxvf ~{callable_h1}
     tar zxvf ~{callable_h2}
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
     tar zcvf call_merge_haplotypes_chrom_snv_~{sample}_~{svtype}_~{chrom}.tgz temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
@@ -269,9 +305,16 @@ task call_merge_haplotypes {
     String threads
     String mem_gb
   }
+  String docker_dir = "/assemblybased"
+  String work_dir = "/cromwell_root/assemblybased"
   command <<<
+    set -euxo pipefail
+    cd ~{docker_dir}
     source activate lr-pav
-    set -eux
+    mkdir -p ~{work_dir}
+    cd ~{work_dir}
+    cp -r ~{docker_dir}/pav .
+
     cp ~{pav_conf} ./config.json
     tar zxvf ~{pav_asm}
     tar zxvf ~{integrated_h1}
@@ -279,7 +322,6 @@ task call_merge_haplotypes {
     tar zxvf ~{callable_h1}
     tar zxvf ~{callable_h2}
     echo ~{sep=" " inbed} | tr " " "\n" | xargs -I '@' tar zxvf @
-    mv /assemblybased/pav /cromwell_root/
     tree
     snakemake -s pav/Snakefile --cores ~{threads} temp/~{sample}/bed/merged/~{svtype}.bed.gz
     tar zcvf call_merge_haplotypes_~{svtype}_~{sample}.tgz temp/~{sample}/bed/merged/~{svtype}.bed.gz

@@ -16,6 +16,12 @@ workflow pav {
     String sample
     File config
   }
+  parameter_meta {
+      ref: "In .fa format."
+      hapOne: "In .fa.gz format."
+      hapTwo: "In .fa.gz format."
+      config: "Default, fixed config file provided with this workflow. Contains no information about the sample."
+  }
 
   Array[Array[String]] chroms = read_tsv(refFai)
 
@@ -42,7 +48,7 @@ workflow pav {
       pav_asm = tar_asm.asm_tar,
       hap = "h1",
       threads = "1",
-      mem_gb = "16",
+      mem_gb = "8",
       sample = sample
   }
   call align.align_get_tig_fa_hap as align_get_tig_fa_h2 {
@@ -51,7 +57,7 @@ workflow pav {
       pav_asm = tar_asm.asm_tar,
       hap = "h2",
       threads = "1",
-      mem_gb = "16",
+      mem_gb = "8",
       sample = sample
   }
   call align.align_ref_anno_n_gap {
