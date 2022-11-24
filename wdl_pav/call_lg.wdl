@@ -28,8 +28,8 @@ task call_lg_split_hap {
     tar zcvf call_lg_split_~{hap}_~{sample}.tgz temp/~{sample}/lg_sv/batch_~{hap}.tsv.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File batch = "call_lg_split_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File batch = work_dir + "/call_lg_split_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -80,8 +80,8 @@ task call_lg_discover_hap {
     tar zcvf call_lg_discover_~{sample}_~{hap}_~{batch}.tgz temp/~{sample}/lg_sv/batch/sv_ins_~{hap}_~{batch}.bed.gz temp/~{sample}/lg_sv/batch/sv_del_~{hap}_~{batch}.bed.gz temp/~{sample}/lg_sv/batch/sv_inv_~{hap}_~{batch}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File allBed = "call_lg_discover_~{sample}_~{hap}_~{batch}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File allBed = work_dir + "/call_lg_discover_~{sample}_~{hap}_~{batch}.tgz"
   }
   ############################
   runtime {
@@ -124,8 +124,8 @@ task call_merge_lg_del_hap {
     tar zcvf call_merge_lg_del_~{hap}_~{svtype}_~{sample}.tgz temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File mergeBed = "call_merge_lg_del_~{hap}_~{svtype}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File mergeBed = work_dir + "/call_merge_lg_del_~{hap}_~{svtype}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -168,8 +168,8 @@ task call_merge_lg_ins_hap {
     tar zcvf call_merge_lg_ins_~{hap}_~{svtype}_~{sample}.tgz temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File mergeBed = "call_merge_lg_ins_~{hap}_~{svtype}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File mergeBed = work_dir + "/call_merge_lg_ins_~{hap}_~{svtype}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -212,8 +212,8 @@ task call_merge_lg_inv_hap {
     tar zcvf call_merge_lg_inv_~{hap}_~{svtype}_~{sample}.tgz temp/~{sample}/lg_sv/sv_~{svtype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File mergeBed = "call_merge_lg_inv_~{hap}_~{svtype}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File mergeBed = work_dir + "/call_merge_lg_inv_~{hap}_~{svtype}_~{sample}.tgz"
   }
   ############################
   runtime {

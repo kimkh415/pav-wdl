@@ -29,8 +29,8 @@ task call_inv_flag_insdel_cluster_indel_hap {
     tar zcvf call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz"
   }
   ############################
   runtime {
@@ -73,8 +73,8 @@ task call_inv_flag_insdel_cluster_sv_hap {
     tar zcvf call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz temp/~{sample}/inv_caller/flag/insdel_~{vartype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_flag_insdel_cluster_indel_~{sample}_~{vartype}_~{hap}.tgz"
   }
   ############################
   runtime {
@@ -117,8 +117,8 @@ task call_inv_cluster_indel_hap {
     tar zcvf call_inv_cluster_indel_~{hap}_~{sample}_~{vartype}.tgz temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_cluster_indel_~{hap}_~{sample}_~{vartype}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_cluster_indel_~{hap}_~{sample}_~{vartype}.tgz"
   }
   ############################
   runtime {
@@ -161,8 +161,8 @@ task call_inv_cluster_snv_hap {
     tar zcvf call_inv_cluster_snv_~{hap}_~{sample}_~{vartype}.tgz temp/~{sample}/inv_caller/flag/cluster_~{vartype}_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_cluster_snv_~{hap}_~{sample}_~{vartype}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_cluster_snv_~{hap}_~{sample}_~{vartype}.tgz"
   }
   ############################
   runtime {
@@ -210,8 +210,8 @@ task call_inv_merge_flagged_loci_hap {
     tar zcvf call_inv_merge_flagged_loci_~{hap}_~{sample}.tgz results/~{sample}/inv_caller/flagged_regions_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_merge_flagged_loci_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_merge_flagged_loci_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -260,8 +260,8 @@ task call_inv_batch_hap {
     tar zcvf call_inv_batch_~{hap}_~{batch}_~{sample}.tgz temp/~{sample}/inv_caller/batch/~{hap}/inv_call_~{batch}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_batch_~{hap}_~{batch}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_batch_~{hap}_~{batch}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -303,8 +303,8 @@ task call_inv_batch_merge_hap {
     tar zcvf call_inv_batch_merge_~{hap}_~{sample}.tgz temp/~{sample}/inv_caller/sv_inv_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_inv_batch_merge_~{hap}_~{sample}.tgz "
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_inv_batch_merge_~{hap}_~{sample}.tgz "
   }
   ############################
   runtime {

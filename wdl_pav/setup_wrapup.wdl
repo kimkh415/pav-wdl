@@ -66,8 +66,8 @@ task call_final_bed {
     tar zcvf final_bed.tgz results/~{sample}/bed/snv_snv.bed.gz results/~{sample}/bed/indel_ins.bed.gz results/~{sample}/bed/indel_del.bed.gz results/~{sample}/bed/sv_ins.bed.gz results/~{sample}/bed/sv_del.bed.gz results/~{sample}/bed/sv_inv.bed.gz results/~{sample}/bed/fa/indel_ins.fa.gz results/~{sample}/bed/fa/indel_del.fa.gz results/~{sample}/bed/fa/sv_ins.fa.gz results/~{sample}/bed/fa/sv_del.fa.gz results/~{sample}/bed/fa/sv_inv.fa.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "final_bed.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/final_bed.tgz"
   }
   ############################
   runtime {
@@ -106,8 +106,8 @@ task data_ref_contig_table{
     tar zcvf contig_info.tgz data/ref/contig_info.tsv.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File contigInfo = 'contig_info.tgz'
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File contigInfo = work_dir + "/contig_info.tgz"
   }
   ############################
   runtime {
@@ -149,8 +149,8 @@ task write_vcf {
     snakemake -s pav/Snakefile --cores ~{threads} pav_~{sample}.vcf.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File vcf = "pav_~{sample}.vcf.gz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File vcf = work_dir + "/pav_~{sample}.vcf.gz"
   }
   ############################
   runtime {

@@ -33,8 +33,8 @@ task call_cigar_hap {
     tar zcvf call_cigar_~{hap}_~{sample}_~{batch}.tgz temp/~{sample}/cigar/batched/insdel_~{hap}_~{batch}.bed.gz temp/~{sample}/cigar/batched/snv.bed_~{hap}_~{batch}.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File snvBed = "call_cigar_~{hap}_~{sample}_~{batch}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File snvBed = work_dir + "/call_cigar_~{hap}_~{sample}_~{batch}.tgz"
   }
   ############################
   runtime {
@@ -76,8 +76,8 @@ task call_cigar_merge_hap {
     tar zcvf call_cigar_merge_~{hap}_~{sample}.tgz temp/~{sample}/cigar/pre_inv/svindel_insdel_~{hap}.bed.gz temp/~{sample}/cigar/pre_inv/snv_snv_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File insdelBedMerge = "call_cigar_merge_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File insdelBedMerge = work_dir + "/call_cigar_merge_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -125,8 +125,8 @@ task call_mappable_bed_hap {
     tar zcvf call_mappable_bed_~{hap}_~{sample}.tgz results/~{sample}/callable/callable_regions_~{hap}_500.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_mappable_bed_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_mappable_bed_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -176,8 +176,8 @@ task call_integrate_sources_hap {
     tar zcvf call_integrate_sources_~{hap}_~{sample}.tgz temp/~{sample}/bed/integrated/~{hap}/svindel_ins.bed.gz temp/~{sample}/bed/integrated/~{hap}/svindel_del.bed.gz temp/~{sample}/bed/integrated/~{hap}/snv_snv.bed.gz temp/~{sample}/bed/integrated/~{hap}/sv_inv.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File all_vars_bed = "call_integrate_sources_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File all_vars_bed = work_dir + "/call_integrate_sources_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -226,8 +226,8 @@ task call_merge_haplotypes_chrom_svindel {
     tar zcvf call_merge_haplotypes_chrom_svindel_~{sample}_~{svtype}_~{chrom}.tgz temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_merge_haplotypes_chrom_svindel_~{sample}_~{svtype}_~{chrom}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_merge_haplotypes_chrom_svindel_~{sample}_~{svtype}_~{chrom}.tgz"
   }
   ############################
   runtime {
@@ -276,8 +276,8 @@ task call_merge_haplotypes_chrom_snv {
     tar zcvf call_merge_haplotypes_chrom_snv_~{sample}_~{svtype}_~{chrom}.tgz temp/~{sample}/bed/bychrom/~{svtype}/~{chrom}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_merge_haplotypes_chrom_snv_~{sample}_~{svtype}_~{chrom}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_merge_haplotypes_chrom_snv_~{sample}_~{svtype}_~{chrom}.tgz"
   }
   ############################
   runtime {
@@ -327,8 +327,8 @@ task call_merge_haplotypes {
     tar zcvf call_merge_haplotypes_~{svtype}_~{sample}.tgz temp/~{sample}/bed/merged/~{svtype}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bed = "call_merge_haplotypes_~{svtype}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bed = work_dir + "/call_merge_haplotypes_~{svtype}_~{sample}.tgz"
   }
   ############################
   runtime {

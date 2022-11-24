@@ -688,14 +688,18 @@ task RunPaftools {
         File ref
     }
     Int disk_size_gb = ceil(size(hapOne, "GB") + size(hapTwo, "GB") + size(ref, "GB"))*10
+    String docker_dir = "/assemblybased"
+    String work_dir = "/cromwell_root/assemblybased"
     command <<<
+        set -euxo pipefail
+        mkdir -p ~{work_dir}
+        cd ~{work_dir}
+    
         TIME_COMMAND="/usr/bin/time --verbose"
         N_SOCKETS="$(lscpu | grep '^Socket(s):' | awk '{print $NF}')"
         N_CORES_PER_SOCKET="$(lscpu | grep '^Core(s) per socket:' | awk '{print $NF}')"
         N_THREADS=$(( ${N_SOCKETS} * ${N_CORES_PER_SOCKET} ))
         MINIMAP2_ASM_FLAG="asm5"  # asm5/asm10/asm20 for ~0.1/1/5% sequence divergence
-        
-        set -euxo pipefail
 
         cat ~{hapOne} ~{hapTwo} > h1_h2.fa
         ${TIME_COMMAND} minimap2 -t ${N_THREADS} -x ${MINIMAP2_ASM_FLAG} -c --cs ~{ref} h1_h2.fa -o h1_h2.paf
@@ -705,7 +709,7 @@ task RunPaftools {
         ${TIME_COMMAND} paftools.js call -f ~{ref} h1_h2.sorted.paf > out.vcf
     >>>
     output {
-        File vcf = "out.vcf"
+        File vcf = work_dir + "/out.vcf"
     }
     runtime {
         docker: "fcunial/assemblybased"

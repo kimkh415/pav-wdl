@@ -25,8 +25,8 @@ task align_ref {
     tar zcvf align_ref_~{sample}.tgz data/ref/ref.fa.gz data/ref/ref.fa.gz.fai
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File refGz = "align_ref_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File refGz = work_dir + "/align_ref_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -66,8 +66,8 @@ task align_get_tig_fa_hap {
     tar zcvf align_get_tig_fa_~{hap}_~{sample}.tgz temp/~{sample}/align/contigs_~{hap}.fa.gz temp/~{sample}/align/contigs_~{hap}.fa.gz.fai
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File asmGz = "align_get_tig_fa_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File asmGz = work_dir + "/align_get_tig_fa_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -108,8 +108,8 @@ task align_ref_anno_n_gap {
     tar zcvf align_ref_anno_n_gap_~{sample}.tgz data/ref/n_gap.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File gaps = "align_ref_anno_n_gap_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File gaps = work_dir + "/align_ref_anno_n_gap_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -153,8 +153,8 @@ task align_map_hap {
     tar czvf align_map_~{hap}_~{sample}.tgz temp/~{sample}/align/pre-cut/aligned_tig_~{hap}.sam.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File samGz = "align_map_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File samGz = work_dir + "/align_map_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -200,8 +200,8 @@ task align_get_read_bed_hap {
     tar czvf align_get_read_bed_~{hap}_~{sample}.tgz results/~{sample}/align/pre-cut/aligned_tig_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File bedGz = "align_get_read_bed_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File bedGz = work_dir + "/align_get_read_bed_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
@@ -245,8 +245,8 @@ task align_cut_tig_overlap_hap {
     tar czvf align_cut_tig_overlap_~{hap}_~{sample}.tgz results/~{sample}/align/aligned_tig_~{hap}.bed.gz
   >>>
   output {
-    Array[File] snakemake_logs = glob(".snakemake/log/*.snakemake.log")
-    File trimBed = "align_cut_tig_overlap_~{hap}_~{sample}.tgz"
+    Array[File] snakemake_logs = glob(work_dir + "/.snakemake/log/*.snakemake.log")
+    File trimBed = work_dir + "/align_cut_tig_overlap_~{hap}_~{sample}.tgz"
   }
   ############################
   runtime {
