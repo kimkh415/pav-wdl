@@ -55,7 +55,6 @@ rule vcf_write_vcf:
         for vartype in ('sv', 'indel', 'snv'):
             for svtype in _VCF_SVTYPE[vartype]:
                 print(f'{vartype} - {svtype}')  # DBGTMP
-				print(f'{reference_file}')  # FABIO
 
                 # Read variants
                 bed_file_name = input[f'bed_{vartype}_{svtype}']
