@@ -17,7 +17,8 @@ workflow pav {
     File config
   }
   parameter_meta {
-      ref: "In .fa format."
+      ref: "In .fa format. Chromosome names must be integers (i.e. without chr)."
+      refFai: "Chromosome names must be integers (i.e. without chr)."
       hapOne: "In .fa.gz format."
       hapTwo: "In .fa.gz format."
       config: "Default, fixed config file provided with this workflow. Contains no information about the sample."

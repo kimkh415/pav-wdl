@@ -47,7 +47,8 @@ rule vcf_write_vcf:
         #     raise RuntimeError(f'Unknown alt format wildcard (alt_fmt): {alt_fmt}')
 
         # Get reference
-        reference_file = get_config(wildcards, 'reference')
+        reference_file = str(get_config(wildcards, 'reference'))
+				print(f'reference_file={reference_file}')  # FABIO
 
         # Process variant types
         df_list = list()
