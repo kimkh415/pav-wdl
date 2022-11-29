@@ -131,3 +131,6 @@ COPY pav_call.snakefile ./pav/rules/call.snakefile
 # We fixed an empty BED bug in rule <vcf_write_vcf> of file
 # <pav/rules/vcf.snakefile>.
 COPY pav_vcf.snakefile ./pav/rules/vcf.snakefile
+# We fixed a bug in SVPOPLIB that happens when chromosome names are integers
+# (without the chr prefix).
+COPY svpop_svpoplib_vcf.py ./pav/dep/svpop/svpoplib/vcf.py

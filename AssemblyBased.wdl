@@ -668,16 +668,18 @@ workflow pav {
       contigInfo = data_ref_contig_table.contigInfo,
       finalBedOut = call_final_bed.bed
   }
-  #call RunPaftools {
-  #  input:
-  #    hapOne = hapOne,
-  #    hapTwo = hapTwo,
-  #    ref = ref
-  #}
+  call RunPaftools {
+    input:
+      hapOne = hapOne,
+      hapTwo = hapTwo,
+      ref = ref
+  }
 
   output {
     File pav_vcf = write_vcf.vcf
-    #File paftools_vcf = RunPaftools.vcf
+    File paftools_vcf_h1 = RunPaftools.vcf_h1
+    File paftools_vcf_h2 = RunPaftools.vcf_h2
+    File paftools_vcf_h1_h2 = RunPaftools.vcf_h1_h2
   }
 }
 
@@ -701,16 +703,33 @@ task RunPaftools {
         N_CORES_PER_SOCKET="$(lscpu | grep '^Core(s) per socket:' | awk '{print $NF}')"
         N_THREADS=$(( ${N_SOCKETS} * ${N_CORES_PER_SOCKET} ))
         MINIMAP2_ASM_FLAG="asm5"  # asm5/asm10/asm20 for ~0.1/1/5% sequence divergence
-
+        
+        # Haplotype 1
+        ${TIME_COMMAND} minimap2 -t ${N_THREADS} -x ${MINIMAP2_ASM_FLAG} -c --cs ~{ref} ~{hapOne} -o h1.paf
+        ${TIME_COMMAND} sort --parallel=${N_THREADS} -k6,6 -k8,8n h1.paf > h1.sorted.paf
+        rm -f h1.paf
+        ${TIME_COMMAND} paftools.js call -f ~{ref} h1.sorted.paf > out_h1.vcf
+        rm -f h1.sorted.paf
+        
+        # Haplotype 2
+        ${TIME_COMMAND} minimap2 -t ${N_THREADS} -x ${MINIMAP2_ASM_FLAG} -c --cs ~{ref} ~{hapTwo} -o h2.paf
+        ${TIME_COMMAND} sort --parallel=${N_THREADS} -k6,6 -k8,8n h2.paf > h2.sorted.paf
+        rm -f h2.paf
+        ${TIME_COMMAND} paftools.js call -f ~{ref} h2.sorted.paf > out_h2.vcf
+        rm -f h2.sorted.paf
+        
+        # Joint
         cat ~{hapOne} ~{hapTwo} > h1_h2.fa
         ${TIME_COMMAND} minimap2 -t ${N_THREADS} -x ${MINIMAP2_ASM_FLAG} -c --cs ~{ref} h1_h2.fa -o h1_h2.paf
         rm -f h1_h2.fa
         ${TIME_COMMAND} sort --parallel=${N_THREADS} -k6,6 -k8,8n h1_h2.paf > h1_h2.sorted.paf
         rm -f h1_h2.paf
-        ${TIME_COMMAND} paftools.js call -f ~{ref} h1_h2.sorted.paf > out.vcf
+        ${TIME_COMMAND} paftools.js call -f ~{ref} h1_h2.sorted.paf > out_h1_h2.vcf
     >>>
     output {
-        File vcf = work_dir + "/out.vcf"
+        File vcf_h1 = work_dir + "/out_h1.vcf"
+        File vcf_h2 = work_dir + "/out_h2.vcf"
+        File vcf_h1_h2 = work_dir + "/out_h1_h2.vcf"
     }
     runtime {
         docker: "fcunial/assemblybased"
