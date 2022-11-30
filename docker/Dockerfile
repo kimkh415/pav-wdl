@@ -134,3 +134,4 @@ COPY pav_vcf.snakefile ./pav/rules/vcf.snakefile
 # We fixed a bug in SVPOPLIB that happens when chromosome names are integers
 # (without the chr prefix).
 COPY svpop_svpoplib_vcf.py ./pav/dep/svpop/svpoplib/vcf.py
+COPY svpop_svpoplib_ref.py ./pav/dep/svpop/svpoplib/ref.py
