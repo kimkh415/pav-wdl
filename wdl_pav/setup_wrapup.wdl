@@ -14,8 +14,21 @@ task tar_asm {
     mkdir -p asm/~{sample}
     cp ~{ref} asm/ref.fa
     samtools faidx asm/ref.fa
-    cp ~{hapOne} asm/~{sample}/h1.fa.gz
-    cp ~{hapTwo} asm/~{sample}/h2.fa.gz
+
+    # Check and compress hapOne if not gzipped
+    if [[ ~{hapOne} != *.gz ]]; then
+      gzip -c ~{hapOne} > asm/~{sample}/h1.fa.gz
+    else
+      cp ~{hapOne} asm/~{sample}/h1.fa.gz
+    fi
+
+    # Check and compress hapTwo if not gzipped
+    if [[ ~{hapTwo} != *.gz ]]; then
+      gzip -c ~{hapTwo} > asm/~{sample}/h2.fa.gz
+    else
+      cp ~{hapTwo} asm/~{sample}/h2.fa.gz
+    fi
+
     tar zcvf asm.tgz asm/
   >>>
   output {
