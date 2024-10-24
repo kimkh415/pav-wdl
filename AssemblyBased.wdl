@@ -199,7 +199,7 @@ workflow pav {
         batchFile = call_lg_split_h1.batch,
         batch = i,
         threads = "8",
-        mem_gb = "32",
+        mem_gb = "48",
         sample = sample
      }
      call call_lg.call_lg_discover_hap as call_lg_discover_h2 {
@@ -214,7 +214,7 @@ workflow pav {
         batchFile = call_lg_split_h2.batch,
         batch = i,
         threads = "8",
-        mem_gb = "32",
+        mem_gb = "48",
         sample = sample
      }
   }
